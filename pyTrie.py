@@ -5,6 +5,7 @@ class TrieNode:
 		self.nodes = [] # [TrieNode, TrieNode, ....]
 		pass
 
+	@property
 	def path(self):
 		rtn = ""
 		n = self
