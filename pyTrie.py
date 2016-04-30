@@ -1,32 +1,44 @@
+
+
 class TrieNode:
-	def __init__(self, parent, key, nodes):
-		self.parent = None # TrieNode value
-		self.key = "" # char/string value
-		self.nodes = [] # [TrieNode, TrieNode, ....]
+	def __init__(self, parent = None, key = None):
+		self.parent = parent    # TrieNode value
+		self.key = key          # char/string value
+		self.nodes = None       # [TrieNode, TrieNode, ....]
 		pass
+	
+	# the way to yield the tree node with recursive way....
+	def __iter__(self):
+		if self.nodes != None:
+			for node in self.nodes:
+				for n in node:
+					yield n
+		yield self
+
+	def setchildren(self, nodes):
+		self.nodes = nodes
 
 	@property
 	def path(self):
 		rtn = ""
 		n = self
 		while n.parent is not None:
-			rtn += (n.key)
+			rtn += n.key
 			n = n.parent
+		return rtn[::-1]  # reserve a string
 
-		return rtn[::-1] #reserve a string
+
 
 class PyTrie:
-	def loadData(self):
-
+	def __init__(self):
 		pass
 
-	def getPrefixData(self, prefix):
+	def add(self, str):
 		pass
 
+	def delete(self, str):
+		pass
 
-print ("aaa"+"bbb")[::-1]
+	def get(self, str):
+		pass
 
-a = iter(list(range(10)))
-for i in a:
-	print(i)
-	next(a)
