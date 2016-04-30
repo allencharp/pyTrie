@@ -51,15 +51,26 @@ class PyTrie(object):
 				cur_node.addchild(new_child)
 				cur_node = new_child
 
+	def delete(self, str):
+		pass
+
+	def get(self, str):
+		cur_node = self.root
+		for loc, key in enumerate(str):
+			node = self.__exist(cur_node, key)
+			if node is None:
+				return None
+			cur_node = node
+
+		rtn_list = []
+		for n in cur_node:
+			rtn_list.append(n.path)
+		return rtn_list
+
 	def __exist(self, trie_node, s):
 		for n in trie_node.nodes:
 			if n.key == s:
 				return n
 		return None
 
-	def delete(self, str):
-		pass
-
-	def get(self, str):
-		pass
 

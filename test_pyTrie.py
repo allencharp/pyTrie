@@ -27,7 +27,13 @@ def test_pytrie_add():
 	pytrie.add("abd")
 	print pytrie.root.nodes[0].nodes[0].nodes[1].key
 
+def test_pytrie_get():
+	pytrie = PyTrie()
+	pytrie.add("abc")
+	pytrie.add("abb")
+	pytrie.add("adz")
+	print pytrie.get("ab")
 
 #test_trienode()
-test_pytrie_add()
-
+#test_pytrie_add()
+test_pytrie_get()
