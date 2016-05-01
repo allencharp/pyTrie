@@ -2,8 +2,7 @@ class TrieNode:
 	def __init__(self, parent = None, key = None):
 		self.parent = parent    # TrieNode value
 		self.key = key          # char/string value
-		self.nodes = []       # [TrieNode, TrieNode, ....]
-		pass
+		self.nodes = []         # [TrieNode, TrieNode, ....]
 
 	# yield the tree node one by one with recursive way....
 	def __iter__(self):
