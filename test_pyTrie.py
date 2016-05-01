@@ -1,39 +1,26 @@
-from pyTrie import  TrieNode
+
 from pyTrie import PyTrie
 
-rootnode = TrieNode(None, '')
-anode = TrieNode(rootnode,'a')
-bnode = TrieNode(rootnode,'b')
-rootnode.addchild(anode)
-rootnode.addchild(bnode)
+import unittest
 
-acnode = TrieNode(anode, 'c')
-anode.addchild(acnode)
+class TestPyTrie(unittest.TestCase):
 
-accnode = TrieNode(acnode, 'c')
-acnode.addchild(accnode)
+	def setUp(self):
+		pass
 
-bdnode = TrieNode(bnode,'d')
-bnode.addchild(bdnode)
+	def test_pytrie_add(self):
+		pytrie = PyTrie()
+		pytrie.add("abc")
+		self.assertEquals(pytrie.root.nodes[0].key, 'a')
+		pytrie.add("abd")
+		self.assertEquals(pytrie.root.nodes[0].nodes[0].key, 'b')
 
-def test_trienode():
-	for i in rootnode:
-		print i.path
+	def test_pytrie_get(self):
+		pytrie = PyTrie()
+		pytrie.add("abc")
+		self.assertEqual(pytrie.get("ab"), ["abc"])
 
-def test_pytrie_add():
-	pytrie = PyTrie()
-	pytrie.add("abc")
-	print pytrie.root.nodes[0].nodes[0].nodes[0].key
-	pytrie.add("abd")
-	print pytrie.root.nodes[0].nodes[0].nodes[1].key
 
-def test_pytrie_get():
-	pytrie = PyTrie()
-	pytrie.add("abc")
-	pytrie.add("abb")
-	pytrie.add("adz")
-	print pytrie.get("ab")
+if __name__ == '__main__':
+	unittest.main()
 
-#test_trienode()
-#test_pytrie_add()
-test_pytrie_get()
