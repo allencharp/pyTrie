@@ -40,6 +40,17 @@ class TestPyTrie(unittest.TestCase):
 		for path in pytrie.get("a"):
 			self.assertIn(path, ["a","abdd"])
 
+	def test_pytrie_general(self):
+		pytrie = PyTrie()
+		with open("sample.txt") as f:
+			for line in f.readlines():
+				for word in line.split(' '):
+					pytrie.add(word)
+
+		for i in pytrie.get("s"):
+			print i
+			#self.assertEqual(i, "Google")
+
 
 if __name__ == '__main__':
 	unittest.main()
