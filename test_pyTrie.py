@@ -26,9 +26,22 @@ class TestPyTrie(unittest.TestCase):
 		for path in pytrie.get("a"):
 			self.assertIn(path, ["a","abc","abd"])
 		for path in pytrie.get('bbbb'):
-			self.assertEqual(path, None)
+			self.assertEqual('a', 'b')  # we could not step into here....
+
+	def test_pytrie_delete(self):
+		pytrie = PyTrie()
+		pytrie.add("abcd")
+		pytrie.add("abdd")
+		pytrie.add("a")
+		pytrie.add("bbbd")
+		for path in pytrie.get("a"):
+			self.assertIn(path, ["a","abcd","abdd"])
+		pytrie.delete("abcd")
+		for path in pytrie.get("a"):
+			self.assertIn(path, ["a","abdd"])
 
 
 if __name__ == '__main__':
 	unittest.main()
+
 

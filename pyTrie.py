@@ -1,5 +1,3 @@
-
-
 class TrieNode:
 	def __init__(self, parent = None, key = None):
 		self.parent = parent    # TrieNode value
@@ -7,7 +5,7 @@ class TrieNode:
 		self.nodes = []       # [TrieNode, TrieNode, ....]
 		pass
 
-	# the way to yield the tree node with recursive way....
+	# yield the tree node one by one with recursive way....
 	def __iter__(self):
 		if len(self.nodes) != 0:
 			for node in self.nodes:
@@ -58,7 +56,18 @@ class PyTrie(object):
 					cur_node = new_child
 
 	def delete(self, str):
-		pass
+		cur_node = self.root
+		for loc, key in enumerate(str):
+			cur_node = self.__exist(cur_node, key)
+		if cur_node is not None:
+			empty_node = [node for node in cur_node.nodes if node.key == '']
+			if(len(empty_node) > 0):
+				cur_node.nodes.remove(empty_node[0])
+			while len(cur_node.nodes) == 0:
+				parent = cur_node.parent
+				parent.nodes.remove(cur_node)
+				cur_node = parent
+
 
 	# generator
 	def get(self, str):
@@ -66,8 +75,8 @@ class PyTrie(object):
 		for loc, key in enumerate(str):
 			node = self.__exist(cur_node, key)
 			if node is None:
-				yield None
 				return
+				yield
 			else:
 				cur_node = node
 
