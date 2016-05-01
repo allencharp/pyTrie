@@ -12,13 +12,21 @@ class TestPyTrie(unittest.TestCase):
 		pytrie = PyTrie()
 		pytrie.add("abc")
 		self.assertEquals(pytrie.root.nodes[0].key, 'a')
-		pytrie.add("abd")
+		self.assertEquals(pytrie.root.nodes[0].nodes[0].nodes[0].nodes[0].key, '')
 		self.assertEquals(pytrie.root.nodes[0].nodes[0].key, 'b')
+		pytrie.add("abd")
+		self.assertEquals(pytrie.root.nodes[0].nodes[0].nodes[1].key, 'd')
 
 	def test_pytrie_get(self):
 		pytrie = PyTrie()
 		pytrie.add("abc")
-		self.assertEqual(pytrie.get("ab"), ["abc"])
+		pytrie.add("abd")
+		pytrie.add("a")
+		pytrie.add("bbb")
+		for path in pytrie.get("a"):
+			self.assertIn(path, ["a","abc","abd"])
+		for path in pytrie.get('bbbb'):
+			self.assertEqual(path, None)
 
 
 if __name__ == '__main__':

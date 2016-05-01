@@ -51,21 +51,40 @@ class PyTrie(object):
 				cur_node.addchild(new_child)
 				cur_node = new_child
 
+			if loc == len(str)-1:
+				if len([n for n in cur_node.nodes if n.key == '']) == 0:
+					new_child = TrieNode(cur_node, '')
+					cur_node.addchild(new_child)
+					cur_node = new_child
+
 	def delete(self, str):
 		pass
 
+	# generator
 	def get(self, str):
 		cur_node = self.root
 		for loc, key in enumerate(str):
 			node = self.__exist(cur_node, key)
 			if node is None:
-				return None
-			cur_node = node
+				yield None
+				return
+			else:
+				cur_node = node
 
-		rtn_list = []
-		for n in cur_node:
-			rtn_list.append(n.path)
-		return rtn_list
+		# get leaf nodes
+		for n in self.__leafnodes(cur_node):
+			yield n.path
+
+	# recursive yield to get the final leaf node
+	def __leafnodes(self, node):
+		cur_node = node
+		if len(cur_node.nodes) == 0:
+			yield node
+		else:
+			for cn in cur_node.nodes:
+				cur_node = cn
+				for n in self.__leafnodes(cur_node):
+					yield n
 
 	def __exist(self, trie_node, s):
 		for n in trie_node.nodes:
